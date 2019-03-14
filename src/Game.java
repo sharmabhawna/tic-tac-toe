@@ -78,7 +78,6 @@ public class Game {
     public void applyMove(int position) {
         this.currentPlayer.addMove(position);
         this.board.addSymbol(position, this.getCurrentPlayerSymbol());
-        System.out.println(this.board.generateBoard());
         if (currentPlayer.hasWon(winningMoves)) {
             this.gameStatus = false;
             return;
@@ -89,5 +88,9 @@ public class Game {
 
     public String getGameResult() {
         return this.getCurrentPlayerName() + " has won";
+    }
+
+    public String generateBoard() {
+        return this.board.generateBoard();
     }
 }

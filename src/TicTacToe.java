@@ -32,6 +32,7 @@ public class TicTacToe {
             if(!moveStatus){
                 System.out.println("Invalid position");
             }
+            System.out.println(game.generateBoard());
         }
         System.out.println(game.getGameResult());
     }
