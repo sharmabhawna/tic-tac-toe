@@ -16,7 +16,7 @@ public class Game {
         this.players.add(firstPlayer);
         this.players.add(secondPlayer);
 
-        this.winningMoves = new ArrayList<>();
+        this.winningMoves = new ArrayList<>(9);
         this.winningMoves.add(asList(1,2,3));
         this.winningMoves.add(asList(4,5,6));
         this.winningMoves.add(asList(7,8,9));
@@ -33,6 +33,23 @@ public class Game {
 
     public String getGameStatus() {
         return this.gameStatus;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public String getCurrentPlayerName(){
+        return this.getCurrentPlayer().getName();
+    }
+
+    public char getCurrentPlayerSymbol(){
+        return this.getCurrentPlayer().getSymbol();
+    }
+
+    public void startGame(){
+        System.out.println(this.board.generateBoard());
+        this.gameStatus = "continue";
     }
 
     public void changeTurn(){

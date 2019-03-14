@@ -25,18 +25,16 @@ public class TicTacToe {
         game.startGame();
 
         while (game.getGameStatus() == "continue"){
-            Player currentPlayer = game.getCurrentPlayer();
-            String playerName = currentPlayer.getName();
-            System.out.print(playerName + "'s turn => Enter position : ");
+            String currentPlayerName = game.getCurrentPlayerName();
+            System.out.print(currentPlayerName + "'s turn => Enter position : ");
             int position = scanner.nextInt();
             game.makeMove(position);
-            System.out.println(game.generateBoard());
         }
 
         if(game.getGameStatus() == "won"){
             Player currentPlayer = game.getCurrentPlayer();
             String playerName = currentPlayer.getName();
-            System.out.println(playerName + " has won");
+            System.out.print(playerName + " has won");
         }
     }
 }
