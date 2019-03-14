@@ -26,6 +26,10 @@ public class Player {
         return this.moves.contains(position);
     }
 
+    public boolean hasMadeAllMoves(){
+        return this.moves.size() == 5;
+    }
+
     public void addMove(int position){
         this.moves.add(position);
     }

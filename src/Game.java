@@ -8,7 +8,8 @@ public class Game {
 
     private final List<List> winningMoves;
     private Board board;
-    private boolean gameStatus;
+    private boolean isContinue;
+    private String gameResult;
     private List<Player> players;
     private Player currentPlayer;
 
@@ -27,13 +28,14 @@ public class Game {
         this.winningMoves.add(asList(1, 5, 9));
         this.winningMoves.add(asList(3, 5, 7));
 
-        this.board = new Board(asList('1', '2', '3', '4', '5', '6', '7', '8', '9'));
+        this.board = new Board(asList(' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '));
         this.currentPlayer = firstPlayer;
-        this.gameStatus = true;
+        this.isContinue = true;
+        this.gameResult = "Game Draw";
     }
 
-    public boolean getGameStatus() {
-        return this.gameStatus;
+    public boolean isContinue() {
+        return this.isContinue;
     }
 
     public Player getCurrentPlayer() {
@@ -59,35 +61,47 @@ public class Game {
 
     public boolean isInvalidMove(int position) {
         ListIterator<Player> playerListIterator = this.players.listIterator();
+
         while (playerListIterator.hasNext()) {
             Player player = playerListIterator.next();
-            if (player.hasMadeMove(position))
+            if (player.hasMadeMove(position) || position > 9 || position < 1)
                 return true;
         }
         return false;
     }
 
-    public boolean makeMove(int position) {
+    public boolean validateMove(int position) {
         if (this.isInvalidMove(position)) {
             return false;
         }
-        this.applyMove(position);
+        this.makeMove(position);
         return true;
     }
 
-    public void applyMove(int position) {
+    public void makeMove(int position) {
         this.currentPlayer.addMove(position);
         this.board.addSymbol(position, this.getCurrentPlayerSymbol());
-        if (currentPlayer.hasWon(winningMoves)) {
-            this.gameStatus = false;
-            return;
-        }
+        if (this.isOver()) this.isContinue = false;
         this.changeTurn();
     }
 
+    public boolean isWon() {
+        return currentPlayer.hasWon(winningMoves);
+    }
+
+    public boolean isDraw() {
+        return this.currentPlayer.hasMadeAllMoves();
+    }
+
+    public boolean isOver() {
+        if (this.isWon()) {
+            this.gameResult = this.getCurrentPlayerName() + " has won";
+        }
+        return this.isWon() || this.isDraw();
+    }
 
     public String getGameResult() {
-        return this.getCurrentPlayerName() + " has won";
+        return this.gameResult;
     }
 
     public String generateBoard() {
