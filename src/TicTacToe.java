@@ -24,17 +24,12 @@ public class TicTacToe {
         Game game = new Game(firstPlayer, secondPlayer);
         game.startGame();
 
-        while (game.getGameStatus() == "continue"){
+        while (game.getGameStatus()){
             String currentPlayerName = game.getCurrentPlayerName();
             System.out.print(currentPlayerName + "'s turn => Enter position : ");
             int position = scanner.nextInt();
-            game.makeMove(position);
+            System.out.println(game.makeMove(position));
         }
-
-        if(game.getGameStatus() == "won"){
-            Player currentPlayer = game.getCurrentPlayer();
-            String playerName = currentPlayer.getName();
-            System.out.print(playerName + " has won");
-        }
+        System.out.println(game.getGameResult());
     }
 }

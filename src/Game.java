@@ -1,13 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import static java.util.Arrays.asList;
 
 public class Game {
 
-    private Board board;
-    private String gameStatus;
     private final List<List> winningMoves;
+    private Board board;
+    private boolean gameStatus;
     private List<Player> players;
     private Player currentPlayer;
 
@@ -17,21 +18,21 @@ public class Game {
         this.players.add(secondPlayer);
 
         this.winningMoves = new ArrayList<>(9);
-        this.winningMoves.add(asList(1,2,3));
-        this.winningMoves.add(asList(4,5,6));
-        this.winningMoves.add(asList(7,8,9));
-        this.winningMoves.add(asList(1,4,7));
-        this.winningMoves.add(asList(2,5,8));
-        this.winningMoves.add(asList(3,6,9));
-        this.winningMoves.add(asList(1,5,9));
-        this.winningMoves.add(asList(4,5,7));
+        this.winningMoves.add(asList(1, 2, 3));
+        this.winningMoves.add(asList(4, 5, 6));
+        this.winningMoves.add(asList(7, 8, 9));
+        this.winningMoves.add(asList(1, 4, 7));
+        this.winningMoves.add(asList(2, 5, 8));
+        this.winningMoves.add(asList(3, 6, 9));
+        this.winningMoves.add(asList(1, 5, 9));
+        this.winningMoves.add(asList(3, 5, 7));
 
-        this.board = new Board(asList('1','2','3','4','5','6','7','8','9'));
+        this.board = new Board(asList('1', '2', '3', '4', '5', '6', '7', '8', '9'));
         this.currentPlayer = firstPlayer;
-        this.gameStatus = "start";
+        this.gameStatus = true;
     }
 
-    public String getGameStatus() {
+    public boolean getGameStatus() {
         return this.gameStatus;
     }
 
@@ -39,35 +40,54 @@ public class Game {
         return currentPlayer;
     }
 
-    public String getCurrentPlayerName(){
+    public String getCurrentPlayerName() {
         return this.getCurrentPlayer().getName();
     }
 
-    public char getCurrentPlayerSymbol(){
+    public char getCurrentPlayerSymbol() {
         return this.getCurrentPlayer().getSymbol();
     }
 
-    public void startGame(){
+    public void startGame() {
         System.out.println(this.board.generateBoard());
-        this.gameStatus = "continue";
     }
 
-    public void changeTurn(){
+    public void changeTurn() {
         int currentPlayerIndex = this.players.indexOf(this.currentPlayer);
         this.currentPlayer = this.players.get(1 - currentPlayerIndex);
     }
 
-    public void makeMove(int position){
+    public boolean isInvalidMove(int position) {
+        ListIterator<Player> playerListIterator = this.players.listIterator();
+        while (playerListIterator.hasNext()) {
+            Player player = playerListIterator.next();
+            if (player.hasMadeMove(position))
+                return true;
+        }
+        return false;
+    }
+
+    public String makeMove(int position) {
+        if (this.isInvalidMove(position)) {
+            return "Invalid move";
+        }
+        this.applyMove(position);
+        return "";
+    }
+
+    public void applyMove(int position) {
         this.currentPlayer.addMove(position);
         this.board.addSymbol(position, this.getCurrentPlayerSymbol());
         System.out.println(this.board.generateBoard());
-        if(currentPlayer.hasWon(winningMoves)){
-            this.gameStatus = "won";
+        if (currentPlayer.hasWon(winningMoves)) {
+            this.gameStatus = false;
             return;
         }
         this.changeTurn();
     }
 
 
-
+    public String getGameResult() {
+        return this.getCurrentPlayerName() + " has won";
+    }
 }
