@@ -67,12 +67,12 @@ public class Game {
         return false;
     }
 
-    public String makeMove(int position) {
+    public boolean makeMove(int position) {
         if (this.isInvalidMove(position)) {
-            return "Invalid move";
+            return false;
         }
         this.applyMove(position);
-        return "";
+        return true;
     }
 
     public void applyMove(int position) {
