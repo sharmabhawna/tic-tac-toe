@@ -5,7 +5,7 @@ import static java.util.Arrays.asList;
 
 public class Game {
 
-    private char[] board;
+    private Board board;
     private String gameStatus;
     private final List<List> winningMoves;
     private List<Player> players;
@@ -26,7 +26,7 @@ public class Game {
         this.winningMoves.add(asList(1,5,9));
         this.winningMoves.add(asList(4,5,7));
 
-        this.board = new char[]{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
+        this.board = new Board(asList('1','2','3','4','5','6','7','8','9'));
         this.currentPlayer = firstPlayer;
         this.gameStatus = "start";
     }
@@ -42,7 +42,8 @@ public class Game {
 
     public void makeMove(int position){
         this.currentPlayer.addMove(position);
-        this.board[--position] = this.currentPlayer.getSymbol();
+        this.board.addSymbol(position, this.getCurrentPlayerSymbol());
+        System.out.println(this.board.generateBoard());
         if(currentPlayer.hasWon(winningMoves)){
             this.gameStatus = "won";
             return;
@@ -50,26 +51,6 @@ public class Game {
         this.changeTurn();
     }
 
-    public void startGame(){
-        this.gameStatus = "continue";
-    }
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public String generateBoard(){
-        String board = "";
-        String horizontalSeperator = "\n +---+---+---+\n";
-        String verticalSeperator = " | ";
-        board = board + horizontalSeperator;
-        for (int index = 0; index < this.board.length; index++) {
-            board = board + verticalSeperator + this.board[index];
-            if((index+1) % 3 == 0){
-                board = board + verticalSeperator + horizontalSeperator;
-            }
-        }
-        return board;
-    }
 
 }
