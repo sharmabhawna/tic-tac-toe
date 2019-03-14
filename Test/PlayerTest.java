@@ -26,7 +26,7 @@ class PlayerTest {
 
     @Test
     @DisplayName("should return true if moves are subset of winning moves")
-    void returnTrue() {
+    void hasWon() {
         Player player = new Player("player", 'x');
 
         player.addMove(1);
@@ -40,7 +40,7 @@ class PlayerTest {
 
     @Test
     @DisplayName("should return false if moves are not subset of winning moves")
-    void returnFalse() {
+    void hasNotWon() {
         Player player = new Player("player", 'x');
 
         player.addMove(1);
@@ -50,6 +50,34 @@ class PlayerTest {
         player.addMove(8);
 
         assertFalse(player.hasWon(winningMoves));
+    }
+
+    @Test
+    @DisplayName("should return true if moves already contain position")
+    void isMovePresent(){
+        Player player = new Player("player", 'x');
+
+        player.addMove(1);
+        player.addMove(3);
+        player.addMove(4);
+        player.addMove(6);
+        player.addMove(7);
+
+        assertTrue(player.hasMadeMove(3));
+    }
+
+    @Test
+    @DisplayName("should return false if moves does not contain position")
+    void isMoveAbsent(){
+        Player player = new Player("player", 'x');
+
+        player.addMove(1);
+        player.addMove(3);
+        player.addMove(4);
+        player.addMove(6);
+        player.addMove(7);
+
+        assertFalse(player.hasMadeMove(5));
     }
 
 }

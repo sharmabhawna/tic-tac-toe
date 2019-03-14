@@ -22,6 +22,10 @@ public class Player {
         return symbol;
     }
 
+    public boolean hasMadeMove(int position){
+        return this.moves.contains(position);
+    }
+
     public void addMove(int position){
         this.moves.add(position);
     }
