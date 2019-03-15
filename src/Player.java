@@ -30,7 +30,7 @@ public class Player {
         return this.moves.size() == 5;
     }
 
-    public void addMove(int position){
+    public void makeMove(int position){
         this.moves.add(position);
     }
 

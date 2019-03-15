@@ -70,16 +70,16 @@ public class Game {
         return false;
     }
 
-    public boolean validateMove(int position) {
+    public boolean makeMove(int position) {
         if (this.isInvalidMove(position)) {
             return false;
         }
-        this.makeMove(position);
+        this.includeMove(position);
         return true;
     }
 
-    public void makeMove(int position) {
-        this.currentPlayer.addMove(position);
+    public void includeMove(int position) {
+        this.currentPlayer.makeMove(position);
         this.board.addSymbol(position, this.getCurrentPlayerSymbol());
         if (this.isOver()) this.isContinue = false;
         this.changeTurn();
@@ -107,4 +107,5 @@ public class Game {
     public String generateBoard() {
         return this.board.generateBoard();
     }
+
 }

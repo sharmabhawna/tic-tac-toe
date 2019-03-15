@@ -28,7 +28,7 @@ public class TicTacToe {
             String currentPlayerName = game.getCurrentPlayerName();
             System.out.print(currentPlayerName + "'s turn => Enter position : ");
             int position = scanner.nextInt();
-            boolean moveStatus = game.validateMove(position);
+            boolean moveStatus = game.makeMove(position);
             if(!moveStatus){
                 System.out.println("Invalid position");
             }

@@ -29,11 +29,11 @@ class PlayerTest {
     void hasWon() {
         Player player = new Player("player", 'x');
 
-        player.addMove(1);
-        player.addMove(3);
-        player.addMove(4);
-        player.addMove(6);
-        player.addMove(7);
+        player.makeMove(1);
+        player.makeMove(3);
+        player.makeMove(4);
+        player.makeMove(6);
+        player.makeMove(7);
 
         assertTrue(player.hasWon(winningMoves));
     }
@@ -43,11 +43,11 @@ class PlayerTest {
     void hasNotWon() {
         Player player = new Player("player", 'x');
 
-        player.addMove(1);
-        player.addMove(3);
-        player.addMove(4);
-        player.addMove(6);
-        player.addMove(8);
+        player.makeMove(1);
+        player.makeMove(3);
+        player.makeMove(4);
+        player.makeMove(6);
+        player.makeMove(8);
 
         assertFalse(player.hasWon(winningMoves));
     }
@@ -57,11 +57,11 @@ class PlayerTest {
     void isMovePresent(){
         Player player = new Player("player", 'x');
 
-        player.addMove(1);
-        player.addMove(3);
-        player.addMove(4);
-        player.addMove(6);
-        player.addMove(7);
+        player.makeMove(1);
+        player.makeMove(3);
+        player.makeMove(4);
+        player.makeMove(6);
+        player.makeMove(7);
 
         assertTrue(player.hasMadeMove(3));
     }
@@ -71,11 +71,11 @@ class PlayerTest {
     void isMoveAbsent(){
         Player player = new Player("player", 'x');
 
-        player.addMove(1);
-        player.addMove(3);
-        player.addMove(4);
-        player.addMove(6);
-        player.addMove(7);
+        player.makeMove(1);
+        player.makeMove(3);
+        player.makeMove(4);
+        player.makeMove(6);
+        player.makeMove(7);
 
         assertFalse(player.hasMadeMove(5));
     }

@@ -1,0 +1,33 @@
+<project name="tic-tac-toe" default="dist">
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="clearClasses">
+        <delete dir="build/classes"/>
+    </target>
+
+    <target name="init" depends="clean">
+        <mkdir dir="build/classes/test"/>
+        <mkdir dir="build/classes/src"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="src" destdir="build/classes/src" includeAntRuntime="false" debug="yes">
+        </javac>
+    </target>
+
+    <target name="build" depends="compile">
+        <mkdir dir="build/distribute/lib"/>
+        <jar destfile="build/distribute/lib/tic-tac-toe.jar" basedir="build/classes/src" update="true">
+            <manifest>
+                <attribute name="Main-Class" value="TicTacToe"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="dist" depends="build">
+        <zip destfile="build/tic-tac-toe.zip" basedir="build/distribute" update="true"/>
+    </target>
+
+</project>
